@@ -1,0 +1,12 @@
+---
+  tasks:
+
+  - name: Install Nginx
+    package:
+      name: nginx
+      state: package_state
+      update_cache: yes
+  - name: start package_name
+    service: 
+      name: package_name
+      state: service_state

@@ -1,9 +1,10 @@
 ---
 - hosts: all
   become: yes
+  debugger: on_skipped
   roles:
     - nginx
-    - zip
-    - unzip
-    - gzip
-    - nano
+##    - zip
+#    - unzip
+#    - gzip
+#    - nano

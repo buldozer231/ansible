@@ -1,7 +1,22 @@
-  - name: Install "{{ package_name }}"
+  - name: "Check if {{ package_name_caps }} is installed"
+    package_facts:
+      manager: "auto"
+  - name: "{{ package_name_caps }} test result"
+    debug:
+      msg: "{{ package_name_caps }} found"
+    when: package_name in ansible_facts.packages
+  - name: "{{ package_name_caps }} test result"
+    debug:
+      msg: "{{ package_name_caps }} NOT found"
+    when: "package_name_scope not in ansible_facts.packages"
+
+  - name: "{{ package_action_log }} {{ package_name_log }}"
+    when:
+    - ("package_name_scope in ansible_facts.packages") and (package_action == "absent")
+    - ("package_name_scope not in ansible_facts.packages") and (package_action == "latest")
     package:
       name: "{{ package_name }}"
-      state: latest
+      state: "{{ package_action }}"
       update_cache: yes
     notify:
            - "{{ package_name }} {{ service_action }}"

@@ -4,6 +4,6 @@
   roles:
     - nginx
     - zip
-    - uzip
+    - unzip
     - gzip
     - nano

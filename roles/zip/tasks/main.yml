@@ -1,7 +1,22 @@
-  - name: Install "{{ package_name }}"
+  - name: "Check if ZIP is installed"
+    package_facts:
+      manager: "auto"
+  - name: "ZIP test result"
+    debug:
+      msg: "ZIP found"
+    when: "'zip' in ansible_facts.packages"
+  - name: "ZIP test result"
+    debug:
+      msg: "ZIP NOT found"
+    when: "'zip' not in ansible_facts.packages"
+
+#  - name: Install {{ package_name }}
+#    when: "'zip' not in ansible_facts.packages"
+  - name: Remove {{ package_name }}
+    when: "'zip' in ansible_facts.packages"
     package:
       name: "{{ package_name }}"
-      state: latest
+      state: "{{package_action}}"
       update_cache: yes
 #    notify:
 #           - "{{ package_name }} {{ service_action }}"

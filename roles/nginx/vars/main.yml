@@ -1,3 +1,11 @@
 ---
    package_name: nginx
+   package_name_scope: 'nginx'
+   package_name_caps: NGINX
+   package_name_log: Nginx
+   package_action: absent
+   package_action_log: Remove
    service_action: start
+
+#absent&Remove
+#latest&Install

@@ -1,0 +1,22 @@
+  - name: "Check if UNZIP is installed"
+    package_facts:
+      manager: "auto"
+  - name: "UNZIP test result"
+    debug:
+      msg: "UNZIP found"
+    when: "'unzip' in ansible_facts.packages"
+  - name: "UNZIP test result"
+    debug:
+      msg: "UNZIP NOT found"
+    when: "'unzip' not in ansible_facts.packages"
+
+#  - name: Install {{ package_name }}
+#    when: "'unzip' not in ansible_facts.packages"
+  - name: Remove {{ package_name }}
+    when: "'unzip' in ansible_facts.packages"
+    package:
+      name: "{{ package_name }}"
+      state: "{{ package_action }}"
+      update_cache: yes
+#    notify:
+#           - "{{ package_name }} {{ service_action }}"

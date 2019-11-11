@@ -1,7 +1,22 @@
-  - name: Install "{{ package_name }}"
+  - name: "Check if GZIP is installed"
+    package_facts:
+      manager: "auto"
+  - name: "GZIP test result"
+    debug:
+      msg: "GZIP found"
+    when: "'gzip' in ansible_facts.packages"
+  - name: "GZIP test result"
+    debug:
+      msg: "GZIP NOT found"
+    when: "'gzip' not in ansible_facts.packages"
+
+#  - name: Install {{ package_name }}
+#    when: "'gzip' not in ansible_facts.packages"
+  - name: Remove {{ package_name }}
+    when: "'gzip' in ansible_facts.packages"
     package:
       name: "{{ package_name }}"
-      state: latest
+      state: "{{ package_action }}"
       update_cache: yes
 #    notify:
 #           - "{{ package_name }} {{ service_action }}"

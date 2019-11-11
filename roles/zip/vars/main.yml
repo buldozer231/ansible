@@ -1,3 +1,4 @@
 ---
    package_name: zip
+   package_action: absent
 #   service_action: start

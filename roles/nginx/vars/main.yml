@@ -5,6 +5,8 @@
    package_action: latest
    package_action_log: Install
    service_action: start
+   install: false
+   remove: true
    isStarting: true
    isEnabling: true
    isRestarting: true

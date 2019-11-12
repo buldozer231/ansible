@@ -1,12 +1,12 @@
 ---
     - name: nginx start
-      #when: isStarting == true
       service: name=nginx state=started
+      when: isStarting == true
 
     - name: nginx restart
-      #when: isRestarting == true
       service: name=nginx state=restarted
+      when: isRestarting == true
 
     - name: nginx enable
-      #when: isEnabling == true
       service: name=nginx state=enabled
+      when: isEnabling

@@ -6,14 +6,14 @@
      name: "{{ package_name }}"
      state: latest
      update_cache: yes
-   when: "package_name not in ansible_facts.packages and install"
+   when:
+     - package_name not in ansible_facts.packages
+     - install
 -  name: "{{ package_name_log }} Remove"
    package:
      name: "{{ package_name }}"
      state: absent
      update_cache: yes
-   when: "package_name in ansible_facts.packages and remove"
-#  notify:
-#      nginx start
-#      nginx enable
-#      nginx restart
+   when:
+     - package_name in ansible_facts.packages
+     - remove

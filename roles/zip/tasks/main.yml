@@ -1,25 +1,19 @@
-  - name: "Check if {{ package_name_caps }} is installed"
-    package_facts:
-      manager: "auto"
-  - name: "{{ package_action_log }} {{ package_name_log }}"
-    when: ((package_name in ansible_facts.packages) and (package_action == "absent")) or ((package_name not in ansible_facts.packages) and (package_action == "latest"))
-    package:
-      name: "{{ package_name }}"
-      state: "{{ package_action }}"
-      update_cache: yes
-
-  - name: "{{package_name_log}} start"
-    when: isStarting == true
-    notify: "{{ package_name }} start"
-
-  - name: "{{package_name_log}} enable"
-    when: isEnabling == true
-    notify: "{{ package_name }} enable"
-
-  - name: "{{package_name_log}} restart"
-    when: isRestarting == true
-    notify: "{{ package_name }} restart"
-
-  - name: "{{package_name_log}} stop"
-    when: isStoping == true
-    notify: "{{ package_name }} stop"
+-  name: "Check if {{ package_name_caps }} is installed"
+   package_facts:
+     manager: "auto"
+-  name: "{{ package_action_log }} Install"
+   package:
+     name: "{{ package_name }}"
+     state: latest
+     update_cache: yes
+   when:
+     - package_name not in ansible_facts.packages
+     - install
+-  name: "{{ package_name_log }} Remove"
+   package:
+     name: "{{ package_name }}"
+     state: absent
+     update_cache: yes
+   when:
+     - package_name in ansible_facts.packages
+     - remove

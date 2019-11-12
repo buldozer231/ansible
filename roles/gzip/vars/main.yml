@@ -1,4 +1,10 @@
 ---
    package_name: gzip
-   package_action: absent
-#   service_action: start
+   package_name_caps: GZIP
+   package_name_log: Gzip
+   package_action: latest
+   package_action_log: Install
+   service_action: start
+   isStarting: true
+   isEnabling: true
+   isRestarting: false

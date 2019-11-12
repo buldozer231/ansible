@@ -1,22 +1,25 @@
-  - name: "Check if ZIP is installed"
+  - name: "Check if {{ package_name_caps }} is installed"
     package_facts:
       manager: "auto"
-  - name: "ZIP test result"
-    debug:
-      msg: "ZIP found"
-    when: "'zip' in ansible_facts.packages"
-  - name: "ZIP test result"
-    debug:
-      msg: "ZIP NOT found"
-    when: "'zip' not in ansible_facts.packages"
-
-#  - name: Install {{ package_name }}
-#    when: "'zip' not in ansible_facts.packages"
-  - name: Remove {{ package_name }}
-    when: "'zip' in ansible_facts.packages"
+  - name: "{{ package_action_log }} {{ package_name_log }}"
+    when: ((package_name in ansible_facts.packages) and (package_action == "absent")) or ((package_name not in ansible_facts.packages) and (package_action == "latest"))
     package:
       name: "{{ package_name }}"
-      state: "{{package_action}}"
+      state: "{{ package_action }}"
       update_cache: yes
-#    notify:
-#           - "{{ package_name }} {{ service_action }}"
+
+  - name: "{{package_name_log}} start"
+    when: isStarting == true
+    notify: "{{ package_name }} start"
+
+  - name: "{{package_name_log}} enable"
+    when: isEnabling == true
+    notify: "{{ package_name }} enable"
+
+  - name: "{{package_name_log}} restart"
+    when: isRestarting == true
+    notify: "{{ package_name }} restart"
+
+  - name: "{{package_name_log}} stop"
+    when: isStoping == true
+    notify: "{{ package_name }} stop"

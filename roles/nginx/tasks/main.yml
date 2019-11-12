@@ -2,23 +2,14 @@
     package_facts:
       manager: "auto"
   - name: "{{ package_action_log }} {{ package_name_log }}"
-    when:
-    - (['package_name'] in ansible_facts.packages) and (['package_action'] == "absent")
-    - (['package_name'] not in ansible_facts.packages) and (['package_action'] == "latest")
+#    when: nginx in ansible_facts.packages
+
     package:
       name: "{{ package_name }}"
       state: "{{ package_action }}"
       update_cache: yes
-    notify:
-           - "{{ package_name }} {{ service_action }}"
-
-
-##  - name: "{{ package_name_caps }} test result"
-#    debug:
-#      msg: "{{ package_name_caps }} found"
-#    when: "'[package_name]' in ansible_facts.packages"
-##  - name: "{{ package_name_caps }} test result"
-#    debug:
-#     
-#      msg: "{{ package_name}} NOT found"
-#    when: "'['package_name']' not in ansible_facts.packages"
+  - name: "{{ package_name }}"
+      notify:
+        nginx start
+        nginx enable
+        nginx restart

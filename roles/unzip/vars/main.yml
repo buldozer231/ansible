@@ -1,4 +1,10 @@
 ---
    package_name: unzip
-   package_action: absent
-#   service_action: start
+   package_name_caps: UNZIP
+   package_name_log: Unzip
+   package_action: latest
+   package_action_log: Install
+   service_action: start
+   isStarting: true
+   isEnabling: true
+   isRestarting: false

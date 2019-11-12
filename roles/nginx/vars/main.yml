@@ -1,11 +1,13 @@
 ---
    package_name: nginx
-   package_name_scope: 'nginx'
    package_name_caps: NGINX
    package_name_log: Nginx
    package_action: latest
    package_action_log: Install
    service_action: start
-
+   isStarting: true
+   isEnabling: true
+   isRestarting: true
+   isStopping: false
 #absent&Remove
 #latest&Install

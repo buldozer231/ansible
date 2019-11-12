@@ -1,22 +1,13 @@
-  - name: "Check if GZIP is installed"
+  - name: "Check if {{ package_name_caps }} is installed"
     package_facts:
       manager: "auto"
-  - name: "GZIP test result"
-    debug:
-      msg: "GZIP found"
-    when: "'gzip' in ansible_facts.packages"
-  - name: "GZIP test result"
-    debug:
-      msg: "GZIP NOT found"
-    when: "'gzip' not in ansible_facts.packages"
-
-#  - name: Install {{ package_name }}
-#    when: "'gzip' not in ansible_facts.packages"
-  - name: Remove {{ package_name }}
-    when: "'gzip' in ansible_facts.packages"
+  - name: "{{ package_action_log }} {{ package_name_log }}"
+    when: ((package_name in ansible_facts.packages) and (package_action == "absent")) or ((package_name not in ansible_facts.packages) and (package_action == "latest"))
     package:
       name: "{{ package_name }}"
       state: "{{ package_action }}"
       update_cache: yes
-#    notify:
-#           - "{{ package_name }} {{ service_action }}"
+
+  - name: nginx start
+      notify:
+        - nginx start

@@ -9,12 +9,12 @@
      - install_gzip
      - deploy
 
--  name: "{{ gzip_log }} Remove"
+-  name: "{{gzip_log}} Remove"
    package:
-     name: "{{ gzip_package }}"
+     name: "{{gzip_package}}"
      state: absent
      update_cache: yes
-   when: gzip_remove
+   when: gzip_remove and false 
    tags:
-     - remove_gzip
-     - erase
+    - remove_gzip
+    - erase

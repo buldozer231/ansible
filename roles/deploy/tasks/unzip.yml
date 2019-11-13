@@ -1,0 +1,19 @@
+-  name: "Check if {{ package_name_caps }} is installed"
+   package_facts:
+     manager: "auto"
+-  name: "{{ package_action_log }} Install"
+   package:
+     name: "{{ package_name }}"
+     state: latest
+     update_cache: yes
+   when:
+     - package_name not in ansible_facts.packages
+     - install
+-  name: "{{ package_name_log }} Remove"
+   package:
+     name: "{{ package_name }}"
+     state: absent
+     update_cache: yes
+   when:
+     - package_name in ansible_facts.packages
+     - remove

@@ -1,0 +1,6 @@
+---
+    - import_tasks: nginx.yml
+    - import_tasks: nano.yml
+    - import_tasks: zip.yml
+    - import_tasks: gzip.yml
+    - import_tasks: unzip.yml

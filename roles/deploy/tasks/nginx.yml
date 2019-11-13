@@ -1,21 +1,37 @@
 ---
-#    - name: Add Nginx Repository
-#      copy: src=nginx.repo dest=/etc/yum.repos.d/ owner=root group=root
-#      register: nginx_repo
-  - name: Install Nginx
-    package:
-      name: nginx 
-      state: latest
-      update_cache: yes
-    notify:
-           - nginx start
+-  name: "{{ nginx_log }} Install"
+   package:
+     name: "{{ nginx_package }}"
+     state: latest
+     update_cache: yes
+   when: nginx_install
+   tags:
+     - install_nginx
+     - deploy
 
-#    - name: Add NGINX cofig
-#      when: nginxinstalled|success
-#      template: src={{ domain }}.conf dest=/etc/nginx/conf.d/{{ domain }}.conf owner=nginx group=nginx
-#
-#    - name: Create Web Root
-#      when: nginxinstalled|success
-#      file: path={{ root }}  mode=775 state=directory owner=nginx group=nginx
-#      notify:
-#          - nginx restart
+-  name: "{{ nginx_log }} Remove"
+   package:
+     name: "{{ nginx_package }}"
+     state: absent
+     update_cache: yes
+   when: nginx_remove
+   tags:
+     - remove_nginx
+     - erase
+
+-  name: Start Nginx
+   service: name=nginx state=started
+   tags:
+     - deploy
+     - start_nginx
+
+-  name: Stop Nginx
+   service: name=nginx state=stopped
+   tags:
+     - stop_nginx
+
+
+-  name: Restart Nginx
+   service: name=nginx state=restarted
+   tags:
+     - restart_nginx

@@ -1,4 +1,3 @@
 ---
-  tasks:
-  - import_tasks: nano.yml
-    
+  - import_tasks: checker.yml
+  - import_tasks: soft.yml

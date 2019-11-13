@@ -1,19 +1,20 @@
--  name: "Check if {{ package_name_caps }} is installed"
-   package_facts:
-     manager: "auto"
--  name: "{{ package_action_log }} Install"
+---
+-  name: "{{ unzip_log }} Install"
    package:
-     name: "{{ package_name }}"
+     name: "{{ unzip_package }}"
      state: latest
      update_cache: yes
-   when:
-     - package_name not in ansible_facts.packages
-     - install
--  name: "{{ package_name_log }} Remove"
+   when: unzip_install
+   tags:
+     - install_unzip
+     - deploy
+
+-  name: "{{ unzip_log }} Remove"
    package:
-     name: "{{ package_name }}"
+     name: "{{ unzip_package }}"
      state: absent
      update_cache: yes
-   when:
-     - package_name in ansible_facts.packages
-     - remove
+   when: unzip_remove
+   tags:
+     - remove_unzip
+     - erase

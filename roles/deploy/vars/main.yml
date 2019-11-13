@@ -1,4 +1,27 @@
 ---
+
+
   nginx_package: nginx
   nginx_log: Nginx
-  
+  nginx_install: false
+  nginx_remove: false
+
+  nano_package: nano
+  nano_log: Nano
+  nano_install: false
+  nano_remove: false
+
+  zip_package: zip
+  zip_log: Zip
+  zip_install: false
+  zip_remove: false
+
+  gzip_package: gzip
+  gzip_log: Gzip
+  gzip_install: false
+  gzip_remove: false
+
+  unzip_package: unzip
+  unzip_log: Unzip
+  unzip_install: false
+  unzip_remove: false

@@ -31,7 +31,15 @@
      - stop_nginx
 
 
--  name: Restart Nginx
-   service: name=nginx state=restarted
-   tags:
-     - restart_nginx
+#-  name: Restart Nginx
+#   service: name=nginx state=restarted
+#   tags:
+#     - restart_nginx
+
+- name: Restart Nginx
+  notify: nginx restart
+  set_fact:
+    nginx_remove: true
+  tags:
+    - deploy
+    - restart_nginx
